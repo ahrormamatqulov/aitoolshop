@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIToolsHub – Find the Best AI Tools</title>
+<meta name="description" content="We review, rank and compare 200+ AI tools so you don't waste money on the wrong one. Find the best AI tools for writing, coding, video, design and more.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --border: rgba(255,255,255,0.08);
+    --accent: #7c5cfc;
+    --accent2: #00e5b0;
+    --text: #f0eeff;
+    --muted: #7a7a99;
+    --card: #16161f;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(12px); z-index: 100;
+  }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.5px; text-decoration: none; color: var(--text); }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; font-size: 14px; }
+  .nav-links a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--accent); color: #fff; border: none;
+    padding: 8px 20px; border-radius: 8px; font-size: 14px;
+    font-family: 'DM Sans', sans-serif; cursor: pointer; font-weight: 500;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center; padding: 90px 40px 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 500px;
+    background: radial-gradient(ellipse, rgba(124,92,252,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-block; background: rgba(124,92,252,0.15); color: var(--accent);
+    border: 1px solid rgba(124,92,252,0.3); border-radius: 20px;
+    padding: 5px 14px; font-size: 13px; margin-bottom: 24px;
+  }
+  h1 {
+    font-family: 'Syne', sans-serif; font-size: 54px; font-weight: 800;
+    line-height: 1.08; letter-spacing: -1.5px; margin-bottom: 20px;
+    max-width: 720px; margin-left: auto; margin-right: auto;
+  }
+  h1 em { font-style: normal; color: var(--accent); }
+  .hero p { color: var(--muted); font-size: 17px; max-width: 520px; margin: 0 auto 36px; }
+
+  .search-bar {
+    display: flex; align-items: center; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 12px;
+    max-width: 560px; margin: 0 auto; overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .search-bar:focus-within { border-color: rgba(124,92,252,0.5); }
+  .search-bar input {
+    flex: 1; background: transparent; border: none; outline: none;
+    padding: 14px 20px; color: var(--text); font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .search-bar input::placeholder { color: var(--muted); }
+  .search-bar button {
+    background: var(--accent); border: none; color: #fff;
+    padding: 10px 22px; margin: 5px; border-radius: 8px;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    font-weight: 500; font-size: 14px; white-space: nowrap;
+  }
+
+  /* STATS */
+  .stats-bar {
+    display: flex; justify-content: center; gap: 60px;
+    padding: 28px 40px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* FILTERS */
+  .filters {
+    display: flex; gap: 10px; justify-content: center;
+    padding: 32px 40px 0; flex-wrap: wrap;
+  }
+  .filter-btn {
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--muted); padding: 7px 18px; border-radius: 20px;
+    font-size: 13px; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: all 0.18s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: rgba(124,92,252,0.15);
+    border-color: var(--accent); color: var(--text);
+  }
+
+  /* SECTION LABEL */
+  .section-label { text-align: center; padding: 48px 40px 20px; }
+  .section-label h2 {
+    font-family: 'Syne', sans-serif; font-size: 28px;
+    font-weight: 700; margin-bottom: 6px;
+  }
+  .section-label p { color: var(--muted); font-size: 14px; }
+
+  /* TOOLS GRID */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 16px; padding: 10px 40px 70px;
+  }
+
+  .tool-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 22px; cursor: pointer;
+    transition: all 0.22s; position: relative; overflow: hidden;
+    text-decoration: none; color: inherit; display: block;
+  }
+  .tool-card:hover { border-color: rgba(124,92,252,0.4); transform: translateY(-3px); }
+  .tool-card::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0; transition: opacity 0.22s;
+  }
+  .tool-card:hover::after { opacity: 1; }
+
+  .card-top { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
+  .tool-icon {
+    width: 46px; height: 46px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+  .tool-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; margin-bottom: 4px; }
+  .tool-tag {
+    font-size: 11px; color: var(--accent);
+    background: rgba(124,92,252,0.12); padding: 2px 9px;
+    border-radius: 10px; display: inline-block;
+  }
+  .tool-desc { font-size: 13px; color: var(--muted); line-height: 1.55; margin-bottom: 16px; }
+  .card-footer { display: flex; align-items: center; justify-content: space-between; }
+  .stars { color: #f5c842; font-size: 12px; }
+  .rating-text { font-size: 12px; color: var(--muted); margin-left: 5px; }
+  .try-btn {
+    background: rgba(124,92,252,0.15); color: var(--accent);
+    border: 1px solid rgba(124,92,252,0.25); padding: 6px 14px;
+    border-radius: 7px; font-size: 12px; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; font-weight: 500; transition: all 0.18s;
+    text-decoration: none;
+  }
+  .try-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .commission-badge {
+    position: absolute; top: 14px; right: 14px;
+    background: rgba(0,229,176,0.1); color: var(--accent2);
+    border: 1px solid rgba(0,229,176,0.2);
+    font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 500;
+  }
+  .hidden { display: none; }
+
+  /* FEATURED SECTION */
+  .featured-section { padding: 0 40px 20px; }
+  .featured-section h2 {
+    font-family: 'Syne', sans-serif; font-size: 22px;
+    font-weight: 700; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .featured-section h2 span {
+    background: rgba(245,200,66,0.15); color: #f5c842;
+    font-size: 11px; padding: 3px 9px; border-radius: 8px; font-weight: 500;
+  }
+  .featured-card {
+    background: var(--surface);
+    border: 1px solid rgba(124,92,252,0.25);
+    border-radius: 16px; padding: 28px 32px;
+    display: flex; gap: 28px; align-items: flex-start;
+    position: relative; overflow: hidden;
+  }
+  .featured-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .featured-icon { font-size: 48px; flex-shrink: 0; }
+  .featured-body { flex: 1; }
+  .featured-body h3 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+  .featured-body p { color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+  .featured-meta { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .featured-tag { font-size: 12px; color: var(--muted); background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 8px; }
+  .featured-cta {
+    background: var(--accent); color: #fff; border: none;
+    padding: 10px 24px; border-radius: 9px; font-size: 14px;
+    font-family: 'DM Sans', sans-serif; font-weight: 500;
+    cursor: pointer; text-decoration: none; display: inline-block;
+  }
+
+  /* NEWSLETTER */
+  .newsletter {
+    margin: 20px 40px 60px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 18px;
+    padding: 52px 40px; text-align: center; position: relative; overflow: hidden;
+  }
+  .newsletter::before {
+    content: ''; position: absolute; bottom: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(ellipse, rgba(0,229,176,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .newsletter h2 { font-family: 'Syne', sans-serif; font-size: 30px; font-weight: 800; margin-bottom: 10px; }
+  .newsletter p { color: var(--muted); margin-bottom: 26px; font-size: 15px; max-width: 420px; margin-left: auto; margin-right: auto; }
+  .nl-form { display: flex; gap: 10px; max-width: 420px; margin: 0 auto; }
+  .nl-form input {
+    flex: 1; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 9px; padding: 12px 16px; color: var(--text);
+    font-size: 14px; font-family: 'DM Sans', sans-serif; outline: none;
+  }
+  .nl-form input:focus { border-color: rgba(124,92,252,0.4); }
+  .nl-form button {
+    background: var(--accent); color: #fff; border: none;
+    border-radius: 9px; padding: 12px 22px; font-size: 14px;
+    font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; white-space: nowrap;
+  }
+  .nl-note { font-size: 12px; color: var(--muted); margin-top: 12px; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border); padding: 28px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--muted); font-size: 13px; flex-wrap: wrap; gap: 12px;
+  }
+  footer a { color: var(--muted); text-decoration: none; margin-left: 20px; }
+  footer a:hover { color: var(--text); }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    h1 { font-size: 34px; }
+    .hero { padding: 60px 20px 40px; }
+    .stats-bar { gap: 24px; padding: 20px; flex-wrap: wrap; }
+    .filters { padding: 24px 20px 0; }
+    .tools-grid { padding: 10px 20px 50px; }
+    .newsletter { margin: 20px; padding: 36px 24px; }
+    .nl-form { flex-direction: column; }
+    footer { padding: 20px; flex-direction: column; align-items: flex-start; }
+    footer a { margin-left: 0; margin-right: 16px; }
+    .featured-section { padding: 0 20px 20px; }
+    .featured-card { flex-direction: column; padding: 22px 20px; }
+    .section-label { padding: 36px 20px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">AI<span>Tools</span>Hub</a>
+  <div class="nav-links">
+    <a href="#tools">Browse</a>
+    <a href="#categories">Categories</a>
+    <a href="#newsletter">Newsletter</a>
+  </div>
+  <button class="nav-cta">Submit a Tool</button>
+</nav>
+
+<section class="hero">
+  <div class="badge">🔥 Updated weekly with new tools</div>
+  <h1>Find the <em>perfect AI tool</em><br>for every task</h1>
+  <p>We review, rank, and compare 200+ AI tools so you don't waste money on the wrong one.</p>
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search by use case (e.g. writing, video, coding...)">
+    <button onclick="doSearch()">Search</button>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">300+</div><div class="stat-label">Tools reviewed</div></div>
+  <div class="stat"><div class="stat-num">48K</div><div class="stat-label">Monthly readers</div></div>
+  <div class="stat"><div class="stat-num">12</div><div class="stat-label">Categories</div></div>
+  <div class="stat"><div class="stat-num">4.8★</div><div class="stat-label">Avg. review score</div></div>
+</div>
+
+<!-- FEATURED TOOL -->
+<div class="featured-section" style="padding-top: 48px;">
+  <h2>⚡ Tool of the week <span>Editor's pick</span></h2>
+  <div class="featured-card">
+    <div class="featured-icon">🤖</div>
+    <div class="featured-body">
+      <h3>Claude by Anthropic</h3>
+      <p>The most thoughtful AI assistant for writing, analysis, coding, and research. Outperforms ChatGPT on complex reasoning tasks and follows instructions precisely — used by professionals worldwide.</p>
+      <div class="featured-meta">
+        <span class="featured-tag">Writing</span>
+        <span class="featured-tag">Coding</span>
+        <span class="featured-tag">Research</span>
+        <span class="featured-tag">★★★★★ 4.9</span>
+        <!-- REPLACE href WITH YOUR AFFILIATE LINK -->
+        <a href="https://claude.ai" target="_blank" rel="noopener" class="featured-cta">Try for free →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filters" id="categories">
+  <button class="filter-btn active" onclick="filterTools('all', this)">All</button>
+  <button class="filter-btn" onclick="filterTools('writing', this)">Writing</button>
+  <button class="filter-btn" onclick="filterTools('coding', this)">Coding</button>
+  <button class="filter-btn" onclick="filterTools('video', this)">Video</button>
+  <button class="filter-btn" onclick="filterTools('design', this)">Design</button>
+  <button class="filter-btn" onclick="filterTools('productivity', this)">Productivity</button>
+  <button class="filter-btn" onclick="filterTools('seo', this)">SEO</button>
+  <button class="filter-btn" onclick="filterTools('marketing', this)">Marketing</button>
+</div>
+
+<div class="section-label" id="tools">
+  <h2>Top rated tools this month</h2>
+  <p>Handpicked based on real-world testing and user feedback</p>
+</div>
+
+<div class="tools-grid" id="toolsGrid">
+
+  <!-- BIG NAMES (no affiliate, but traffic magnets) -->
+  <div class="tool-card" data-category="productivity">
+    <div class="card-top">
+      <div class="tool-icon" style="background:#0a1a10;">🤖</div>
+      <div>
+        <div class="tool-name">ChatGPT</div>
+        <span class="tool-tag">Productivity</span>
+      </div>
+    </div>
+    <p class="tool-desc">OpenAI's flagship AI assistant. Best for brainstorming, writing, coding help, and answering complex questions. The tool that started the AI revolution.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★★</span><span class="rating-text">4.9 (120k reviews)</span></div>
+      <a href="https://chat.openai.com" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="productivity">
+    <div class="card-top">
+      <div class="tool-icon" style="background:#0a0f1f;">✨</div>
+      <div>
+        <div class="tool-name">Google Gemini</div>
+        <span class="tool-tag">Productivity</span>
+      </div>
+    </div>
+    <p class="tool-desc">Google's most capable AI model. Excels at multimodal tasks — analyze images, PDFs, and data alongside text. Deeply integrated with Google Workspace.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★★</span><span class="rating-text">4.8 (45k reviews)</span></div>
+      <a href="https://gemini.google.com" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="productivity">
+    <div class="card-top">
+      <div class="tool-icon" style="background:#1a0a0f;">🔵</div>
+      <div>
+        <div class="tool-name">DeepSeek</div>
+        <span class="tool-tag">Productivity</span>
+      </div>
+    </div>
+    <p class="tool-desc">China's breakthrough AI model that shocked the world. Rivals GPT-4 at a fraction of the cost. Exceptional for coding, math, and deep reasoning tasks.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★★</span><span class="rating-text">4.8 (28k reviews)</span></div>
+      <a href="https://chat.deepseek.com" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="productivity">
+    <div class="card-top">
+      <div class="tool-icon" style="background:#0f0a1a;">🔮</div>
+      <div>
+        <div class="tool-name">Perplexity AI</div>
+        <span class="tool-tag">Productivity</span>
+      </div>
+    </div>
+    <p class="tool-desc">AI-powered search that gives direct answers with cited sources. Replaces Google for research — no ads, no clickbait, just answers.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★★</span><span class="rating-text">4.8 (31k reviews)</span></div>
+      <!-- REPLACE WITH YOUR PERPLEXITY AFFILIATE LINK (20% recurring) -->
+      <a href="https://perplexity.ai" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <!-- AFFILIATE TOOLS -->
+  <div class="tool-card" data-category="writing">
+    <div class="commission-badge">30% recurring</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#1a1a2e;">✍️</div>
+      <div>
+        <div class="tool-name">Jasper AI</div>
+        <span class="tool-tag">Writing</span>
+      </div>
+    </div>
+    <p class="tool-desc">The go-to AI writing assistant for marketing teams. Generates blog posts, ads, and email copy in seconds with brand voice consistency.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★★</span><span class="rating-text">4.8 (1.2k reviews)</span></div>
+      <!-- REPLACE href WITH YOUR JASPER AFFILIATE LINK -->
+      <a href="https://jasper.ai" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="writing">
+    <div class="commission-badge">30% recurring</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#1a0d20;">⚡</div>
+      <div>
+        <div class="tool-name">Writesonic</div>
+        <span class="tool-tag">Writing</span>
+      </div>
+    </div>
+    <p class="tool-desc">AI writer built for SEO. Generates factually accurate, Google-optimized blog posts in minutes. Used by 10,000+ content teams worldwide.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★☆</span><span class="rating-text">4.6 (2.3k reviews)</span></div>
+      <!-- REPLACE href WITH YOUR WRITESONIC AFFILIATE LINK -->
+      <a href="https://writesonic.com" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="writing">
+    <div class="commission-badge">$20 per upgrade</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#1a0d1f;">🖊️</div>
+      <div>
+        <div class="tool-name">Grammarly</div>
+        <span class="tool-tag">Writing</span>
+      </div>
+    </div>
+    <p class="tool-desc">Beyond spell-check — rewrites sentences for clarity, tone, and impact. Used by 30M+ professionals. Works inside every app you already use.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★★</span><span class="rating-text">4.8 (8.2k reviews)</span></div>
+      <!-- REPLACE href WITH YOUR GRAMMARLY AFFILIATE LINK -->
+      <a href="https://grammarly.com" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="coding">
+    <div class="commission-badge">30% recurring</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#0d1f12;">💻</div>
+      <div>
+        <div class="tool-name">GitHub Copilot</div>
+        <span class="tool-tag">Coding</span>
+      </div>
+    </div>
+    <p class="tool-desc">AI pair programmer that autocompletes code in real time. Supports 20+ languages and integrates with every major IDE effortlessly.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★★</span><span class="rating-text">4.9 (3.4k reviews)</span></div>
+      <!-- REPLACE href WITH YOUR GITHUB AFFILIATE LINK -->
+      <a href="https://github.com/features/copilot" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="coding">
+    <div class="commission-badge">20% recurring</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#0a1520;">🧠</div>
+      <div>
+        <div class="tool-name">Cursor</div>
+        <span class="tool-tag">Coding</span>
+      </div>
+    </div>
+    <p class="tool-desc">The AI-first code editor taking over from VS Code. Write, edit, and debug entire codebases with natural language. Loved by pro developers.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★★</span><span class="rating-text">4.9 (6.1k reviews)</span></div>
+      <!-- REPLACE href WITH YOUR CURSOR AFFILIATE LINK -->
+      <a href="https://cursor.com" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="video">
+    <div class="commission-badge">20% recurring</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#1f0d1a;">🎬</div>
+      <div>
+        <div class="tool-name">Synthesia</div>
+        <span class="tool-tag">Video</span>
+      </div>
+    </div>
+    <p class="tool-desc">Create professional AI avatar videos from text alone. Used by 50,000+ companies for training videos and marketing content in 120+ languages.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★☆</span><span class="rating-text">4.6 (890 reviews)</span></div>
+      <!-- REPLACE href WITH YOUR SYNTHESIA AFFILIATE LINK -->
+      <a href="https://synthesia.io" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="video">
+    <div class="commission-badge">20% recurring</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#0f1a0a;">🎥</div>
+      <div>
+        <div class="tool-name">Descript</div>
+        <span class="tool-tag">Video</span>
+      </div>
+    </div>
+    <p class="tool-desc">Edit video by editing text. Remove filler words, clone your voice, and create studio-quality content — no editing skills needed.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★☆</span><span class="rating-text">4.5 (1.4k reviews)</span></div>
+      <!-- REPLACE href WITH YOUR DESCRIPT AFFILIATE LINK -->
+      <a href="https://descript.com" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="video">
+    <div class="commission-badge">30% recurring</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#1a100a;">🦓</div>
+      <div>
+        <div class="tool-name">Pictory</div>
+        <span class="tool-tag">Video</span>
+      </div>
+    </div>
+    <p class="tool-desc">Turn blog posts and scripts into short videos automatically. Perfect for repurposing content into YouTube Shorts, Reels, and TikToks.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★☆</span><span class="rating-text">4.5 (980 reviews)</span></div>
+      <!-- REPLACE href WITH YOUR PICTORY AFFILIATE LINK -->
+      <a href="https://pictory.ai" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="design">
+    <div class="commission-badge">35% recurring</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#1a180a;">🎨</div>
+      <div>
+        <div class="tool-name">Midjourney</div>
+        <span class="tool-tag">Design</span>
+      </div>
+    </div>
+    <p class="tool-desc">The gold standard in AI image generation. Creates stunning artwork, product visuals, and marketing assets from text prompts. Loved by designers worldwide.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★★</span><span class="rating-text">4.9 (5.6k reviews)</span></div>
+      <!-- REPLACE href WITH YOUR MIDJOURNEY AFFILIATE LINK -->
+      <a href="https://midjourney.com" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="design">
+    <div class="commission-badge">20% recurring</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#0a1520;">🖼️</div>
+      <div>
+        <div class="tool-name">Leonardo.ai</div>
+        <span class="tool-tag">Design</span>
+      </div>
+    </div>
+    <p class="tool-desc">Professional AI image generation with fine-tuned models. Ideal for game assets, concept art, and consistent character creation at scale.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★★</span><span class="rating-text">4.7 (3.2k reviews)</span></div>
+      <!-- REPLACE href WITH YOUR LEONARDO AFFILIATE LINK -->
+      <a href="https://leonardo.ai" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="design">
+    <div class="card-top">
+      <div class="tool-icon" style="background:#1a1f0a;">🍌</div>
+      <div>
+        <div class="tool-name">Nano Banana</div>
+        <span class="tool-tag">Design</span>
+      </div>
+    </div>
+    <p class="tool-desc">AI image editor powered by Google Gemini. Edit photos with text prompts — change styles, swap objects, and transform scenes in seconds.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★☆</span><span class="rating-text">4.4 (320 reviews)</span></div>
+      <a href="https://nanobanana.io" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="seo">
+    <div class="commission-badge">25% recurring</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#0a1a2f;">🔍</div>
+      <div>
+        <div class="tool-name">Surfer SEO</div>
+        <span class="tool-tag">SEO</span>
+      </div>
+    </div>
+    <p class="tool-desc">AI-powered SEO tool that tells you exactly what to write to rank on Google. Trusted by 17,000+ businesses and content agencies.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★★</span><span class="rating-text">4.7 (2.1k reviews)</span></div>
+      <!-- REPLACE href WITH YOUR SURFER AFFILIATE LINK -->
+      <a href="https://surferseo.com" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="seo">
+    <div class="commission-badge">40% recurring</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#0f1a15;">📊</div>
+      <div>
+        <div class="tool-name">Semrush</div>
+        <span class="tool-tag">SEO</span>
+      </div>
+    </div>
+    <p class="tool-desc">The complete SEO and competitive intelligence platform. Keyword research, backlink analysis, site audits, and AI content tools in one place.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★★</span><span class="rating-text">4.8 (14k reviews)</span></div>
+      <!-- REPLACE href WITH YOUR SEMRUSH AFFILIATE LINK -->
+      <a href="https://semrush.com" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="marketing">
+    <div class="commission-badge">30% recurring</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#1a0a0a;">📧</div>
+      <div>
+        <div class="tool-name">Copy.ai</div>
+        <span class="tool-tag">Marketing</span>
+      </div>
+    </div>
+    <p class="tool-desc">AI that writes high-converting email sequences, landing pages, and ad copy. Trusted by 10M+ marketers and businesses worldwide.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★☆</span><span class="rating-text">4.5 (1.8k reviews)</span></div>
+      <!-- REPLACE href WITH YOUR COPY.AI AFFILIATE LINK -->
+      <a href="https://copy.ai" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="marketing">
+    <div class="commission-badge">50% recurring</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#1a0f00;">📱</div>
+      <div>
+        <div class="tool-name">ContentStudio</div>
+        <span class="tool-tag">Marketing</span>
+      </div>
+    </div>
+    <p class="tool-desc">AI-powered social media management platform. Schedule, create, and analyze content across all platforms. One of the highest affiliate commissions in the space.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★☆</span><span class="rating-text">4.5 (760 reviews)</span></div>
+      <!-- REPLACE href WITH YOUR CONTENTSTUDIO AFFILIATE LINK -->
+      <a href="https://contentstudio.io" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="productivity">
+    <div class="commission-badge">50% recurring</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#0a1a1a;">📋</div>
+      <div>
+        <div class="tool-name">Notion AI</div>
+        <span class="tool-tag">Productivity</span>
+      </div>
+    </div>
+    <p class="tool-desc">AI built directly into Notion. Summarizes notes, writes drafts, creates action items from meetings, and answers questions about your docs instantly.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★☆</span><span class="rating-text">4.6 (3.1k reviews)</span></div>
+      <!-- REPLACE href WITH YOUR NOTION AFFILIATE LINK -->
+      <a href="https://notion.so" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="productivity">
+    <div class="commission-badge">30% recurring</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#1a0a1a;">🎙️</div>
+      <div>
+        <div class="tool-name">Otter.ai</div>
+        <span class="tool-tag">Productivity</span>
+      </div>
+    </div>
+    <p class="tool-desc">AI meeting assistant that records, transcribes, and summarizes your Zoom, Teams, and Google Meet calls automatically in real time.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★☆</span><span class="rating-text">4.5 (4.2k reviews)</span></div>
+      <!-- REPLACE href WITH YOUR OTTER AFFILIATE LINK -->
+      <a href="https://otter.ai" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+  <div class="tool-card" data-category="productivity">
+    <div class="commission-badge">20% recurring</div>
+    <div class="card-top">
+      <div class="tool-icon" style="background:#0a0f1a;">🗣️</div>
+      <div>
+        <div class="tool-name">Murf AI</div>
+        <span class="tool-tag">Productivity</span>
+      </div>
+    </div>
+    <p class="tool-desc">Studio-quality AI voiceovers in 120+ voices and 20+ languages. Used by e-learning creators, YouTubers, and marketing teams to ditch expensive voice actors.</p>
+    <div class="card-footer">
+      <div><span class="stars">★★★★★</span><span class="rating-text">4.7 (1.9k reviews)</span></div>
+      <!-- REPLACE href WITH YOUR MURF AFFILIATE LINK -->
+      <a href="https://murf.ai" target="_blank" rel="noopener" class="try-btn">Try Free →</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter" id="newsletter">
+  <h2>Weekly AI tool drops 📬</h2>
+  <p>Get the 3 best new AI tools every Tuesday. No fluff, no spam — just tools that actually work.</p>
+  <div class="nl-form">
+    <input type="email" placeholder="your@email.com" id="emailInput">
+    <button onclick="subscribe()">Subscribe free</button>
+  </div>
+  <p class="nl-note">Join 48,000+ readers. Unsubscribe anytime.</p>
+</div>
+
+<footer>
+  <span>© 2025 AIToolsHub — Affiliate links are disclosed. We earn a commission at no extra cost to you.</span>
+  <div>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Affiliate Disclosure</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Filter tools by category
+  function filterTools(category, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.tool-card').forEach(card => {
+      if (category === 'all' || card.dataset.category === category) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  // Search tools
+  function doSearch() {
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    if (!query) return;
+    document.querySelectorAll('.tool-card').forEach(card => {
+      const text = card.innerText.toLowerCase();
+      card.classList.toggle('hidden', !text.includes(query));
+    });
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tools').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  document.getElementById('searchInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') doSearch();
+  });
+
+  // Newsletter subscribe (wire to your email provider)
+  function subscribe() {
+    const email = document.getElementById('emailInput').value;
+    if (!email || !email.includes('@')) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    // TODO: Replace this with your actual email service (Mailchimp, ConvertKit, etc.)
+    alert('Thanks for subscribing! Check your inbox for a confirmation email.');
+    document.getElementById('emailInput').value = '';
+  }
+</script>
+</body>
+</html>
